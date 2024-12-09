@@ -11,10 +11,11 @@ ENV INST_SCRIPTS $STARTUPDIR/install
 WORKDIR $HOME
 
 ######### Customize Container Here ###########
-# Replace user name in scripts
-#RUN find /dockerstartup -type f -exec sed -i "s/$OLD_USER/$NEW_USER/g" {} \;
+# Rename user
+RUN usermod -l $NEW_USER $OLD_USER && \
+    rm -Rf /home/$OLD_USER && \
+    ln -s /home/$NEW_USER /home/$OLD_USER 
 
-RUN usermod -l $NEW_USER $OLD_USER
 ######### End Customizations ###########
 
 RUN chown 1000:0 $HOME
