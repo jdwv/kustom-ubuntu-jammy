@@ -10,6 +10,8 @@ WORKDIR $HOME
 
 ######### Customize Container Here ###########
 
+RUN ln -s /home/k-user /home/kasm-user
+
 ######### End Customizations ###########
 
 RUN chown 1000:0 $HOME
