@@ -17,7 +17,7 @@ RUN find /dockerstartup -type f -exec sed -i 's/$OLD_USER/$NEW_USER/g' {} \;
 # Create new user && home
 RUN useradd -ms /bin/sh $NEW_USER
 
-RUN rm -Rf /home/kasm-user \
+RUN rm -Rf /home/kasm-user && \
     ln -s /home/$NEW_USER /home/$OLD_USER
 
 ######### End Customizations ###########
