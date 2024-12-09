@@ -12,13 +12,10 @@ WORKDIR $HOME
 ######### Customize Container Here ###########
 
 # Replace user name in scripts
-RUN find /dockerstartup -type f -exec sed -i 's/$OLD_USER/$NEW_USER/g' {} \;
+RUN find /dockerstartup -type f -exec sed -i "s/$OLD_USER/$NEW_USER/g" {} \;
 
 # Create new user && home
-RUN useradd -ms /bin/sh $NEW_USER
-
-RUN rm -Rf /home/kasm-user && \
-    ln -s /home/$NEW_USER /home/$OLD_USER
+RUN useradd -s /bin/sh $NEW_USER
 
 ######### End Customizations ###########
 
@@ -33,5 +30,8 @@ RUN mkdir -p $HOME && \
     USER_ID=$(id -u $NEW_USER) && \
     GROUP_ID=$(id -g $NEW_USER) && \
     chown -R $USER_ID:$GROUP_ID $HOME
+
+#RUN rm -Rf /home/kasm-user && \    ln -s /home/$NEW_USER /home/$OLD_USER
+
 # Swap to new user
 USER $NEW_USER
